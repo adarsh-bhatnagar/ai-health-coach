@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+        
+
+model Assistant {
+  id Int @id @default(autoincrement())
+  assistantId String @unique
+}
+
+model userThread {
+  id       Int @id @default(autoincrement())
+  userId   String @unique
+  threadId String
+  createdAt DateTime @default(now())
+
+}
+
+model ChallengePreferences {
+  id         Int @id @default(autoincrement())
+  userId     String @unique
+  challengeId String
+  sendNotifications Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UserMeta {
+  id        Int   @id @default(autoincrement())
+  userId    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  endpoint  String   @db.Text
+  p256dh    String   @db.Text
+  auth      String   @db.Text
+}
+// login -> get user id -> get thread id -> get messages
