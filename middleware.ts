@@ -9,7 +9,10 @@ const isPublicRoute = createRouteMatcher([
   '/api/thread/create',
   '/api/message/list',
   '/api/run/create',
-  '/api/run/retrieve'
+  '/api/run/retrieve',
+  '/api/user-thread',
+  '/api/challenge-users',
+  '/api/openai'
 ])
 export default clerkMiddleware((auth, request) => {
   if (!isPublicRoute(request)) {
